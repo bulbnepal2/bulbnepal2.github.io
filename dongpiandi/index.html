@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>懂片帝-懂片帝电影解说_高分电影推荐_影视片单解读</title>
+<meta name="description" content="懂片帝是一站式影视内容解读与片单推荐首页，提供电影解说、高分电影推荐、剧集片单解读与观影指南，帮助观众快速找到值得看的好片。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111a2b'/%3E%3Cpath d='M18 22h28v6H18zm0 10h28v6H18zm0 10h18v6H18z' fill='%23f5c451'/%3E%3Ccircle cx='46' cy='16' r='6' fill='%23e2574c'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --ink:#111a2b;
+    --ink-2:#22304a;
+    --paper:#f7f4ee;
+    --card:#ffffff;
+    --gold:#f5c451;
+    --red:#e2574c;
+    --muted:#5c6678;
+    --line:#e3ded4;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px;}
+
+  /* 页头 */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,244,238,.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .hdr{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 0;}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.5px;}
+  .logo .mark{width:36px;height:36px;flex:0 0 36px;}
+  nav.main{display:flex;gap:22px;font-size:15px;color:var(--ink-2);}
+  nav.main a{padding:4px 0;border-bottom:2px solid transparent;transition:.2s;}
+  nav.main a:hover{border-bottom-color:var(--gold);color:var(--ink);}
+  .hdr-cta{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--ink);color:#fff;font-size:14px;font-weight:600;
+    padding:9px 16px;border-radius:999px;white-space:nowrap;
+  }
+  .hdr-cta:hover{background:var(--ink-2);}
+  .menu-toggle{display:none;background:none;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:14px;color:var(--ink);}
+
+  /* 首屏 */
+  .hero{padding:56px 0 44px;position:relative;overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;}
+  .kicker{
+    display:inline-block;font-size:13px;font-weight:700;letter-spacing:1px;
+    color:var(--ink);background:var(--gold);
+    padding:4px 12px;border-radius:999px;margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(34px,5.2vw,56px);
+    line-height:1.15;font-weight:900;letter-spacing:1px;margin-bottom:18px;
+  }
+  h1 .dot{color:var(--red);}
+  .hero p.lead{font-size:17px;color:var(--ink-2);max-width:34em;margin-bottom:26px;}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:15px;font-weight:600;padding:12px 22px;border-radius:999px;
+    transition:.2s;border:1px solid transparent;
+  }
+  .btn-primary{background:var(--red);color:#fff;}
+  .btn-primary:hover{background:#c9463c;}
+  .btn-ghost{background:transparent;border-color:var(--ink);color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink);color:#fff;}
+  .hero-stats{display:flex;gap:28px;margin-top:32px;flex-wrap:wrap;}
+  .hero-stats div{font-size:13px;color:var(--muted);}
+  .hero-stats strong{display:block;font-size:22px;color:var(--ink);font-weight:800;}
+  .hero-art{
+    background:var(--ink);border-radius:24px;padding:22px;color:#fff;
+    box-shadow:0 24px 50px -28px rgba(17,26,43,.6);
+  }
+  .hero-art .reel{width:100%;height:auto;}
+  .hero-art p{font-size:13px;color:#aab4c6;margin-top:14px;line-height:1.6;}
+
+  /* 通用分区 */
+  section{padding:56px 0;}
+  section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .sec-head{margin-bottom:30px;max-width:44em;}
+  .sec-head .eyebrow{font-size:13px;font-weight:700;color:var(--red);letter-spacing:1px;margin-bottom:8px;}
+  .sec-head h2{font-size:clamp(24px,3.2vw,32px);font-weight:800;line-height:1.3;margin-bottom:10px;}
+  .sec-head p{color:var(--muted);font-size:15px;}
+
+  /* 片单卡片 */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;display:flex;flex-direction:column;gap:10px;transition:.25s;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 18px 34px -24px rgba(17,26,43,.5);}
+  .card .tag{font-size:12px;font-weight:700;color:var(--ink);background:var(--gold);border-radius:6px;padding:2px 9px;align-self:flex-start;}
+  .card h3{font-size:18px;font-weight:800;line-height:1.4;}
+  .card p{font-size:14px;color:var(--muted);flex:1;}
+  .card .meta{font-size:12px;color:#8a94a6;border-top:1px dashed var(--line);padding-top:10px;}
+
+  /* 解读流程 */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;}
+  .step .num{
+    width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--gold);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;margin-bottom:12px;
+  }
+  .step h3{font-size:16px;font-weight:800;margin-bottom:6px;}
+  .step p{font-size:13.5px;color:var(--muted);}
+
+  /* 编辑视角 */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;}
+  .prose p{font-size:15.5px;color:var(--ink-2);margin-bottom:16px;}
+  .prose p strong{color:var(--ink);}
+  .quote{
+    background:var(--ink);color:#f2f4f8;border-radius:var(--radius);padding:28px;
+    border-left:6px solid var(--gold);
+  }
+  .quote p{font-size:15.5px;line-height:1.85;}
+  .quote cite{display:block;margin-top:14px;font-size:13px;color:#aab4c6;font-style:normal;}
+
+  /* 常见问题 */
+  .faq{display:grid;gap:14px;}
+  details{
+    background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;
+  }
+  details[open]{border-color:var(--gold);}
+  summary{font-size:15.5px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px;align-items:center;}
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"+";font-size:20px;color:var(--red);font-weight:700;line-height:1;}
+  details[open] summary::after{content:"−";}
+  details p{font-size:14.5px;color:var(--muted);margin-top:12px;}
+
+  /* 订阅/入口 */
+  .cta-band{
+    background:linear-gradient(135deg,var(--ink) 0%,#25324c 100%);
+    color:#fff;border-radius:24px;padding:44px 36px;
+    display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;
+  }
+  .cta-band h2{font-size:clamp(22px,3vw,30px);font-weight:800;margin-bottom:10px;line-height:1.35;}
+  .cta-band p{font-size:15px;color:#b9c2d2;max-width:34em;}
+  .cta-form{display:flex;gap:10px;flex-wrap:wrap;}
+  .cta-form input{
+    flex:1;min-width:180px;padding:12px 16px;border-radius:999px;border:1px solid #3c4a66;
+    background:#1a2437;color:#fff;font-size:14px;outline:none;
+  }
+  .cta-form input:focus{border-color:var(--gold);}
+  .cta-form button{
+    padding:12px 22px;border-radius:999px;border:none;background:var(--gold);color:var(--ink);
+    font-weight:800;font-size:14px;cursor:pointer;
+  }
+  .cta-form button:hover{background:#ffd76b;}
+  .form-note{font-size:12.5px;color:#8f9bb0;margin-top:10px;}
+
+  /* 页尾 */
+  footer.site{background:#0d1524;color:#9aa5b8;padding:48px 0 28px;font-size:14px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;margin-bottom:32px;}
+  .foot-brand .logo{color:#fff;margin-bottom:12px;}
+  .foot-brand p{font-size:13.5px;line-height:1.8;max-width:30em;}
+  footer h4{color:#fff;font-size:14px;font-weight:700;margin-bottom:12px;letter-spacing:.5px;}
+  footer ul{list-style:none;display:grid;gap:8px;font-size:13.5px;}
+  footer ul a:hover{color:var(--gold);}
+  .foot-bottom{border-top:1px solid #1e2a3f;padding-top:18px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:#6f7b90;}
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .cards{grid-template-columns:1fr 1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .split{grid-template-columns:1fr;}
+    .cta-band{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:640px){
+    nav.main{display:none;}
+    nav.main.open{
+      display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;
+      background:var(--paper);border-bottom:1px solid var(--line);padding:16px 20px;gap:14px;
+    }
+    .hdr{position:relative;}
+    .menu-toggle{display:inline-block;}
+    .hdr-cta{display:none;}
+    .cards{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    .hero{padding:36px 0 30px;}
+    .hero-stats{gap:20px;}
+    .cta-band{padding:32px 22px;}
+    .foot-grid{grid-template-columns:1fr;}
+    section{padding:40px 0;}
+  }
+</style>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap hdr">
+    <a class="logo" href="#top" aria-label="懂片帝首页">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#111a2b"/>
+        <path d="M18 22h28v6H18zm0 10h28v6H18zm0 10h18v6H18z" fill="#f5c451"/>
+        <circle cx="46" cy="16" r="6" fill="#e2574c"/>
+      </svg>
+      <span>懂片帝</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav">菜单</button>
+    <nav class="main" id="mainNav" aria-label="主导航">
+      <a href="#picks">精选片单</a>
+      <a href="#method">解读方法</a>
+      <a href="#view">编辑视角</a>
+      <a href="#faq">常见问题</a>
+      <a href="#subscribe">订阅更新</a>
+    </nav>
+    <a class="hdr-cta" href="#picks">开始看片单</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 首屏 -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="kicker">影视内容解读 · 片单推荐</span>
+        <h1>懂片帝</h1>
+        <p class="lead">懂片帝把一部电影拆成看得懂的部分：故事讲了什么、镜头为何这样拍、哪些段落值得反复回看。这里没有剧透式的流水账，只有能帮你在两小时内做出观影决定的解读与片单。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#picks">浏览精选片单</a>
+          <a class="btn btn-ghost" href="#method">了解解读方法</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>3 类</strong>片单栏目</div>
+          <div><strong>4 步</strong>解读流程</div>
+          <div><strong>每周</strong>片单更新</div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <svg class="reel" viewBox="0 0 320 200" role="img" aria-label="胶片与播放器主题插画">
+          <rect x="0" y="0" width="320" height="200" rx="16" fill="#1a2437"/>
+          <rect x="24" y="34" width="150" height="96" rx="10" fill="#0f1828" stroke="#3c4a66"/>
+          <path d="M86 62l34 20-34 20z" fill="#f5c451"/>
+          <g fill="#22304a">
+            <rect x="24" y="140" width="16" height="12" rx="3"/>
+            <rect x="48" y="140" width="16" height="12" rx="3"/>
+            <rect x="72" y="140" width="16" height="12" rx="3"/>
+            <rect x="96" y="140" width="16" height="12" rx="3"/>
+            <rect x="120" y="140" width="16" height="12" rx="3"/>
+            <rect x="144" y="140" width="16" height="12" rx="3"/>
+          </g>
+          <circle cx="246" cy="70" r="38" fill="none" stroke="#f5c451" stroke-width="6"/>
+          <circle cx="246" cy="70" r="10" fill="#e2574c"/>
+          <path d="M246 32v10M246 98v10M208 70h10M274 70h10" stroke="#f5c451" stroke-width="6" stroke-linecap="round"/>
+          <rect x="204" y="128" width="92" height="10" rx="5" fill="#3c4a66"/>
+          <rect x="204" y="148" width="62" height="10" rx="5" fill="#2b3a55"/>
+        </svg>
+        <p>选片之前先懂片：懂片帝用结构化的解读替代零散影评，让每次点开播放键都有明确理由。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 精选片单 -->
+  <section id="picks" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">精选片单</div>
+        <h2>按观看状态分组的三个入口</h2>
+        <p>片单不是排行榜，而是按“你现在想怎么看”来组织。每张卡片说明推荐理由与适合的观看场景，方便直接判断是否值得占用一个晚上。</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <span class="tag">首次观看</span>
+          <h3>先看故事：入门友好片单</h3>
+          <p>叙事线清晰、人物动机明确的作品集合。适合刚接触某位导演或某个类型，希望先建立整体印象的观众。</p>
+          <div class="meta">适合：周末整块时间 · 2 小时以内</div>
+        </article>
+        <article class="card">
+          <span class="tag">二刷回看</span>
+          <h3>再看细节：结构拆解片单</h3>
+          <p>重点标注伏笔、时间线与镜头调度。第一次看容易漏掉的信息，在懂片帝的解读里按场景顺序重新排列。</p>
+          <div class="meta">适合：已看过一遍 · 边看边对照</div>
+        </article>
+        <article class="card">
+          <span class="tag">碎片时间</span>
+          <h3>短篇优先：一小时片单</h3>
+          <p>时长紧凑但完成度高的作品，适合通勤前后或睡前观看，每部都配有简短的看点提示与情绪基调说明。</p>
+          <div class="meta">适合：单次 60–100 分钟 · 手机观看</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 解读方法 -->
+  <section id="method">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">解读方法</div>
+        <h2>懂片帝的四步看片法</h2>
+        <p>方法固定，内容因片而异。四步走完，基本能对一部作品形成自己的判断，而不是只记住别人的结论。</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <h3>明确片型</h3>
+          <p>先判断它属于类型片还是作者表达，类型决定了合理的期待值。</p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <h3>梳理主线</h3>
+          <p>用一句话概括核心冲突，再补充推动冲突的关键转折点。</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <h3>观察语言</h3>
+          <p>留意镜头、光线与剪辑节奏，画面本身也在传递信息。</p>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <h3>形成判断</h3>
+          <p>把感受落到具体段落上，说明喜欢或不喜欢的原因。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 编辑视角 -->
+  <section id="view" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">编辑视角</div>
+        <h2>为什么懂片帝坚持先讲清楚再评价</h2>
+      </div>
+      <div class="split">
+        <div class="prose">
+          <p>很多影评在开头就给结论，读者记住了分数，却不知道分数从哪来。<strong>懂片帝的做法是把评价拆开放到具体段落之后</strong>：先说清楚这一场戏在做什么，再谈它做得好不好。</p>
+          <p>这样写会更长，但读者拿到的是一套可复用的观看方式。下次面对一部没有解读的作品，也能自己顺着主线、语言、判断三层往下走。</p>
+          <p>片单部分同样遵循这个原则。推荐理由不写“必看”“神作”这类无法验证的词，而是说明适合谁、在什么状态下看、大概需要多少时间。</p>
+        </div>
+        <blockquote class="quote">
+          <p>“懂片帝希望你在关掉页面之后，还能对刚才那部电影说出三件具体的事——它讲了什么、怎么讲的、你信不信。”</p>
+          <cite>—— 懂片帝编辑说明</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- 常见问题 -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">常见问题</div>
+        <h2>关于懂片帝的几个说明</h2>
+        <p>以下内容描述本站的内容范围与使用方式，不涉及具体影片的评价结论。</p>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>懂片帝的解读会包含剧透吗？</summary>
+          <p>片单卡片默认不含关键情节，正文解读会标注剧透提示。建议先看完影片，再回到结构拆解部分对照阅读。</p>
+        </details>
+        <details>
+          <summary>片单多久更新一次？</summary>
+          <p>精选片单按周整理，三个分组会根据新上线内容与读者反馈调整顺序，旧条目保留在归档中，不随意删除。</p>
+        </details>
+        <details>
+          <summary>可以在手机上阅读完整解读吗？</summary>
+          <p>页面按移动端优先调整了字号、行距与卡片排列，长文在手机上保持单列阅读，不需要横向滚动。</p>
+        </details>
+        <details>
+          <summary>懂片帝提供影片下载吗？</summary>
+          <p>不提供。本站仅做内容解读与片单推荐，影片请通过正规渠道观看。页面上的片单资料可自行保存备用。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 订阅 -->
+  <section id="subscribe">
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h2>每周一封片单信</h2>
+          <p>留下邮箱，懂片帝会在每周整理一次当周片单与解读更新，内容简短，不堆砌推荐语。</p>
+        </div>
+        <div>
+          <form class="cta-form" id="subForm" novalidate>
+            <label class="sr-only" for="email">邮箱地址</label>
+            <input type="email" id="email" name="email" placeholder="你的邮箱地址" autocomplete="email" required>
+            <button type="submit">订阅片单</button>
+          </form>
+          <p class="form-note" id="formNote">仅用于片单更新通知，可随时退订。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <svg class="mark" viewBox="0 0 64 64" aria-hidden="true" width="32" height="32">
+            <rect width="64" height="64" rx="14" fill="#f5c451"/>
+            <path d="M18 22h28v6H18zm0 10h28v6H18zm0 10h18v6H18z" fill="#111a2b"/>
+            <circle cx="46" cy="16" r="6" fill="#e2574c"/>
+          </svg>
+          <span>懂片帝</span>
+        </div>
+        <p>懂片帝是一个面向普通观众的影视解读与片单推荐首页，关注故事结构、镜头语言与观看体验，帮助你把有限的时间花在值得看的作品上。</p>
+      </div>
+      <div>
+        <h4>内容导航</h4>
+        <ul>
+          <li><a href="#picks">精选片单</a></li>
+          <li><a href="#method">解读方法</a></li>
+          <li><a href="#view">编辑视角</a></li>
+          <li><a href="#faq">常见问题</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>使用说明</h4>
+        <ul>
+          <li><a href="#subscribe">订阅片单更新</a></li>
+          <li><a href="#faq">剧透提示规则</a></li>
+          <li><a href="#faq">移动端阅读</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2024 懂片帝 · 影视内容解读与片单推荐</span>
+      <span>站内解读为编辑观点，影片版权归原权利人所有</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('menuToggle');
+    var nav = document.getElementById('mainNav');
+    if(toggle && nav){
+      toggle.addEventListener('click', function(){
+        var open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      nav.addEventListener('click', function(e){
+        if(e.target.tagName === 'A'){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+      });
+    }
+    var form = document.getElementById('subForm');
+    var note = document.getElementById('formNote');
+    if(form && note){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var input = document.getElementById('email');
+        var v = (input.value || '').trim();
+        var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        if(!ok){
+          note.textContent = '请输入有效的邮箱地址后再订阅。';
+          note.style.color = '#f5c451';
+          input.focus();
+          return;
+        }
+        note.textContent = '订阅信息已记录（演示页面，未实际发送）。';
+        note.style.color = '#9aa5b8';
+        form.reset();
+      });
+    }
+  })();
+</script>
+</body>
+</html>
