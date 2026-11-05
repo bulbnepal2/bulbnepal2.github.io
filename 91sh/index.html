@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>91.short.com-短链接生成与网址缩短工具_短网址在线生成_链接管理</title>
+<meta name="description" content="91.short.com 是一个短链接生成与网址缩短服务入口，提供长网址缩短、短链自定义后缀、点击统计与链接管理功能，帮助你把冗长链接变成易分享的短网址。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b3a5c'/%3E%3Cpath d='M24 40l16-16M20 44a8 8 0 010-11l5-5M44 20a8 8 0 010 11l-5 5' stroke='%236fd3c4' stroke-width='4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#12243a;
+  --ink-soft:#3d5168;
+  --navy:#1b3a5c;
+  --navy-deep:#102a45;
+  --teal:#2fa394;
+  --teal-soft:#e3f4f1;
+  --paper:#f6f8fa;
+  --line:#dde5ec;
+  --white:#ffffff;
+  --radius:14px;
+  --max:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.75;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+img,svg{display:block;max-width:100%}
+
+/* ---------- 页头 ---------- */
+.header{
+  background:var(--navy-deep);
+  color:#eaf1f7;
+  position:sticky;top:0;z-index:50;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.header-inner{
+  max-width:var(--max);margin:0 auto;padding:14px 22px;
+  display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.12rem;letter-spacing:.2px;color:#fff}
+.logo-mark{width:34px;height:34px;flex:none}
+.nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.nav a{
+  padding:7px 13px;border-radius:999px;font-size:.92rem;color:#cfe0ee;
+  transition:background .2s,color .2s;
+}
+.nav a:hover,.nav a:focus-visible{background:rgba(255,255,255,.12);color:#fff;outline:none}
+.nav .nav-cta{background:var(--teal);color:#08262a;font-weight:600}
+.nav .nav-cta:hover{background:#3fb9a8;color:#04201f}
+
+/* ---------- 首屏 ---------- */
+.hero{
+  background:linear-gradient(160deg,#102a45 0%,#1b3a5c 58%,#1f4a66 100%);
+  color:#eef5fa;padding:56px 0 62px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-120px;top:-80px;width:420px;height:420px;
+  border-radius:50%;background:radial-gradient(circle,rgba(47,163,148,.32),transparent 68%);
+  pointer-events:none;
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center;position:relative;z-index:2}
+.eyebrow{
+  display:inline-block;font-size:.8rem;letter-spacing:2px;color:#8fe0d3;
+  border:1px solid rgba(143,224,211,.45);border-radius:999px;padding:4px 14px;margin-bottom:16px;
+}
+h1{font-size:2.5rem;line-height:1.25;font-weight:800;letter-spacing:.3px;word-break:break-word}
+.hero-lead{margin-top:16px;font-size:1.02rem;color:#c7d8e7;max-width:34em}
+.hero-actions{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;
+  font-size:.98rem;font-weight:600;border:1px solid transparent;transition:transform .15s,background .2s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--teal);color:#04201f}
+.btn-primary:hover{background:#3fb9a8}
+.btn-ghost{border-color:rgba(255,255,255,.35);color:#eaf1f7}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn[aria-disabled="true"]{cursor:default;opacity:.85}
+.hero-stats{margin-top:30px;display:flex;gap:30px;flex-wrap:wrap;font-size:.9rem;color:#a9c1d6}
+.hero-stats b{display:block;font-size:1.3rem;color:#fff;font-weight:700}
+.hero-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+  border-radius:var(--radius);padding:22px;backdrop-filter:blur(3px);
+}
+.hero-card h2{font-size:.95rem;font-weight:600;color:#bfe6de;margin-bottom:12px;letter-spacing:1px}
+.demo-input{
+  display:flex;align-items:center;gap:8px;background:rgba(4,20,32,.55);
+  border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:10px 12px;
+  font-size:.86rem;color:#9fb8cc;word-break:break-all;
+}
+.demo-input span{color:#7f97ab}
+.demo-arrow{text-align:center;color:#6fd3c4;font-size:1.1rem;margin:8px 0}
+.demo-out{
+  background:var(--white);color:var(--navy);border-radius:10px;padding:12px;
+  font-weight:700;font-size:.95rem;letter-spacing:.3px;display:flex;justify-content:space-between;gap:10px;align-items:center;
+}
+.demo-out small{font-weight:400;font-size:.75rem;color:var(--ink-soft)}
+.demo-note{margin-top:12px;font-size:.78rem;color:#9fb8cc;line-height:1.6}
+
+/* ---------- 通用区块 ---------- */
+section{padding:56px 0}
+.section-head{max-width:640px;margin-bottom:32px}
+.section-head .kicker{
+  font-size:.8rem;letter-spacing:2px;color:var(--teal);font-weight:700;
+  text-transform:uppercase;margin-bottom:8px;display:block;
+}
+.section-head h2{font-size:1.7rem;line-height:1.35;font-weight:800;color:var(--navy-deep)}
+.section-head p{margin-top:10px;color:var(--ink-soft);font-size:.98rem}
+
+/* ---------- 功能卡片 ---------- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px 22px;transition:box-shadow .2s,transform .2s;
+}
+.card:hover{box-shadow:0 10px 26px rgba(18,36,58,.08);transform:translateY(-2px)}
+.card-icon{
+  width:42px;height:42px;border-radius:11px;background:var(--teal-soft);
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+}
+.card h3{font-size:1.05rem;font-weight:700;color:var(--navy-deep);margin-bottom:8px}
+.card p{font-size:.92rem;color:var(--ink-soft);line-height:1.72}
+
+/* ---------- 使用步骤 ---------- */
+.steps{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.step-list{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:step}
+.step{position:relative;padding-top:8px}
+.step::before{
+  counter-increment:step;content:"0" counter(step);
+  font-size:1.5rem;font-weight:800;color:#c3d3e0;display:block;margin-bottom:8px;letter-spacing:1px;
+}
+.step h3{font-size:1rem;font-weight:700;color:var(--navy-deep);margin-bottom:6px}
+.step p{font-size:.9rem;color:var(--ink-soft)}
+
+/* ---------- 正文说明 ---------- */
+.article-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:44px;align-items:start}
+.prose h2{font-size:1.55rem;font-weight:800;color:var(--navy-deep);line-height:1.4;margin-bottom:14px}
+.prose h3{font-size:1.08rem;font-weight:700;color:var(--navy);margin:24px 0 8px}
+.prose p{color:var(--ink-soft);margin-bottom:12px;font-size:.97rem}
+.prose ul{margin:0 0 14px 20px;color:var(--ink-soft);font-size:.95rem}
+.prose li{margin-bottom:6px}
+.side-box{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px;
+}
+.side-box h3{font-size:1rem;font-weight:700;color:var(--navy-deep);margin-bottom:10px}
+.side-box dl{font-size:.9rem;color:var(--ink-soft)}
+.side-box dt{font-weight:600;color:var(--navy);margin-top:10px}
+.side-box dd{margin:2px 0 0}
+.side-box .tagline{
+  margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);font-size:.86rem;color:var(--ink-soft);
+}
+.side-box .tagline strong{color:var(--navy)}
+
+/* ---------- FAQ ---------- */
+.faq{background:var(--white);border-top:1px solid var(--line)}
+.faq-list{display:grid;grid-template-columns:1fr 1fr;gap:18px 30px}
+.faq-item{border-left:3px solid var(--teal);padding:4px 0 4px 16px}
+.faq-item h3{font-size:.99rem;font-weight:700;color:var(--navy-deep);margin-bottom:6px}
+.faq-item p{font-size:.9rem;color:var(--ink-soft)}
+
+/* ---------- 收束 CTA ---------- */
+.closing{
+  background:linear-gradient(140deg,#102a45,#1f4a66);color:#eef5fa;padding:52px 0;
+}
+.closing-inner{display:flex;gap:30px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.closing h2{font-size:1.5rem;font-weight:800;line-height:1.4}
+.closing p{margin-top:8px;color:#bcd2e3;font-size:.95rem;max-width:44em}
+
+/* ---------- 页尾 ---------- */
+.footer{background:#0b1d2e;color:#8ea7bc;padding:36px 0 30px;font-size:.86rem}
+.footer-inner{display:flex;gap:26px;justify-content:space-between;flex-wrap:wrap;align-items:flex-start}
+.footer strong{color:#cfe0ee;font-weight:600;display:block;margin-bottom:6px}
+.footer a{color:#9fbdd4;border-bottom:1px solid rgba(159,189,212,.3)}
+.footer a:hover{color:#fff}
+.footer-col{max-width:340px;line-height:1.8}
+.footer-bottom{margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.09);color:#6d879c;font-size:.8rem}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:940px){
+  .hero-grid{grid-template-columns:1fr;gap:34px}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .step-list{grid-template-columns:repeat(2,1fr)}
+  .article-grid{grid-template-columns:1fr;gap:30px}
+  .faq-list{grid-template-columns:1fr}
+  h1{font-size:2.05rem}
+}
+@media (max-width:600px){
+  body{font-size:15px}
+  .header-inner{padding:12px 16px;gap:10px}
+  .nav{margin-left:0;width:100%;gap:4px}
+  .nav a{padding:6px 10px;font-size:.85rem}
+  .wrap{padding:0 16px}
+  .hero{padding:36px 0 44px}
+  h1{font-size:1.6rem}
+  .hero-lead{font-size:.95rem}
+  .hero-stats{gap:20px}
+  .hero-stats b{font-size:1.12rem}
+  section{padding:40px 0}
+  .section-head h2{font-size:1.35rem}
+  .cards{grid-template-columns:1fr}
+  .step-list{grid-template-columns:1fr}
+  .closing h2{font-size:1.25rem}
+  .footer-inner{flex-direction:column;gap:18px}
+}
+</style>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="#top" aria-label="91.short.com 首页">
+      <svg class="logo-mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#1b3a5c"/>
+        <path d="M24 40l16-16M20 44a8 8 0 010-11l5-5M44 20a8 8 0 010 11l-5 5" stroke="#6fd3c4" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span>91.short.com</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="#features">功能</a>
+      <a href="#how">使用方法</a>
+      <a href="#guide">短链说明</a>
+      <a href="#faq">常见问题</a>
+      <a class="nav-cta" href="#shorten">立即缩短</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 首屏 -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">短链接 · 网址缩短</span>
+        <h1 id="hero-title">91.short.com</h1>
+        <p class="hero-lead">
+          91.short.com 是一个面向日常分享场景的短链接生成入口：把冗长的网址缩短成简短易记的链接，
+          支持自定义后缀、点击统计与集中管理，方便你在聊天、文档和社交平台之间转发。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#shorten">开始缩短网址</a>
+          <a class="btn btn-ghost" href="#guide">了解短链原理</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>3 步</b>完成一次缩短</div>
+          <div><b>可自定义</b>短链后缀</div>
+          <div><b>可追溯</b>点击数据</div>
+        </div>
+      </div>
+
+      <div class="hero-card" aria-label="短链效果示意">
+        <h2>效果示意</h2>
+        <div class="demo-input">
+          <span>https://</span>example.com/article/2024/guide-to-short-url?utm_source=share
+        </div>
+        <div class="demo-arrow" aria-hidden="true">↓</div>
+        <div class="demo-out">
+          <span>91.short.com/abc123</span>
+          <small>已缩短</small>
+        </div>
+        <p class="demo-note">
+          示意图仅用于说明长网址与短网址的长度差异，实际短链以后台生成为准。
+          使用 91.short.com 缩短后，原链接参数保持不变，跳转指向原始地址。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 功能 -->
+  <section id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">核心功能</span>
+        <h2 id="features-title">短链接工具该做的事，91.short.com 逐项做到</h2>
+        <p>围绕“把长网址变短、把短链管好”这条主线，页面把常用能力集中在同一处，减少来回切换工具的麻烦。</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2fa394" stroke-width="2" stroke-linecap="round">
+              <path d="M9 15l6-6M8 18a4 4 0 010-6l2-2M16 6a4 4 0 010 6l-2 2"/>
+            </svg>
+          </div>
+          <h3>长网址一键缩短</h3>
+          <p>粘贴完整网址即可生成短链接，跳转时保留原始路径与查询参数，适合长文章、活动页和带追踪参数的分享链接。</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2fa394" stroke-width="2" stroke-linecap="round">
+              <path d="M4 7h16M4 12h10M4 17h7"/>
+            </svg>
+          </div>
+          <h3>自定义短链后缀</h3>
+          <p>在可用范围内自定义短链的后半段，让链接本身带上品牌或内容含义，比随机字符更容易辨认和记忆。</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2fa394" stroke-width="2" stroke-linecap="round">
+              <path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/>
+            </svg>
+          </div>
+          <h3>点击数据统计</h3>
+          <p>查看短链的访问次数与时间分布，判断哪条链接真正被打开，为后续内容分发提供可参考的数据依据。</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2fa394" stroke-width="2" stroke-linecap="round">
+              <rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h5"/>
+            </svg>
+          </div>
+          <h3>链接集中管理</h3>
+          <p>已生成的短链统一归档，可按时间或名称查找，避免在多个聊天窗口里反复翻找同一条历史链接。</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2fa394" stroke-width="2" stroke-linecap="round">
+              <path d="M12 3v18M3 12h18"/>
+            </svg>
+          </div>
+          <h3>移动端友好</h3>
+          <p>页面在手机浏览器中同样可用，输入框与按钮按小屏重新排布，在手机上也能完成缩短与复制操作。</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2fa394" stroke-width="2" stroke-linecap="round">
+              <path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/>
+            </svg>
+          </div>
+          <h3>跳转稳定</h3>
+          <p>短链的核心价值是稳定跳转。91.short.com 以原始地址为准进行跳转，不改变目标页面的内容与结构。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 使用步骤 -->
+  <section id="how" class="steps" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">使用方法</span>
+        <h2 id="how-title">四步完成一次短链接生成</h2>
+        <p>不需要安装客户端，在浏览器里按顺序操作即可。以下步骤按 91.short.com 的常规流程整理。</p>
+      </div>
+      <div class="step-list">
+        <div class="step">
+          <h3>复制长网址</h3>
+          <p>从浏览器地址栏或分享面板复制完整链接，确认包含 https:// 前缀与全部查询参数。</p>
+        </div>
+        <div class="step">
+          <h3>粘贴并提交</h3>
+          <p>把网址粘贴进输入框，如有需要填写自定义后缀，再点击生成按钮。</p>
+        </div>
+        <div class="step">
+          <h3>获取短链</h3>
+          <p>生成后复制结果，短链形如 91.short.com/xxxx，可直接发给同事或写入文档。</p>
+        </div>
+        <div class="step">
+          <h3>查看数据</h3>
+          <p>在链接列表里回看访问次数，按需调整后续的分享渠道与内容节奏。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 正文说明 -->
+  <section id="guide" aria-labelledby="guide-title">
+    <div class="wrap article-grid">
+      <div class="prose">
+        <h2 id="guide-title">短链接是什么，91.short.com 适合谁用</h2>
+        <p>
+          短链接，是把一段较长的网址映射成一个更短的地址。访问短链时，服务端把请求指向原始网址，
+          浏览者看到的仍然是同一个页面。91.short.com 做的就是这层映射：输入长网址，得到一条简短地址。
+          对需要在聊天窗口、短信、海报或文档里放链接的人来说，短链能明显减少占用空间，也更容易被完整复制。
+        </p>
+
+        <h3>典型使用场景</h3>
+        <ul>
+          <li>把带大量追踪参数的活动链接缩短后再群发，避免链接被聊天软件截断；</li>
+          <li>在公众号、微博等有字数限制的平台上放置短链，留出更多正文空间；</li>
+          <li>把同一份资料的多条链接整理成短链清单，方便同事逐条打开；</li>
+          <li>为线下物料生成易读的短链，减少手动输入出错的可能。</li>
+        </ul>
+
+        <h3>短链生成后要注意什么</h3>
+        <p>
+          短链本质是转发地址，原始页面能否打开取决于目标站点本身。使用 91.short.com 生成短链后，
+          建议先自行点开验证一次，确认跳转指向正确内容；如果原链接失效或页面被删除，短链也会随之中断。
+          另外，短链的识别度依赖后缀命名，自定义后缀时尽量使用与内容相关的词，避免与他人已有的短链混淆。
+        </p>
+        <p>
+          对于需要长期使用的链接，建议保留原始网址的备份记录。短链缩短的是地址长度，不改变内容责任：
+          转发之前确认来源可靠，是对接收方最基本的尊重。91.short.com 提供的点击统计可以帮助你判断链接的实际触达情况，
+          但它只反映访问次数，不能替代对内容质量的判断。
+        </p>
+
+        <h3>与直接分享长网址的区别</h3>
+        <p>
+          长网址在复制、粘贴和换行时更容易出错，尤其在移动端输入框里，末尾参数常被截断。
+          短链把地址压缩到一行可完整显示的长度，降低了传递过程中的损耗。这也是 91.short.com 把“缩短”放在首屏入口的原因：
+          它解决的是一个很具体、很日常的问题。
+        </p>
+      </div>
+
+      <aside class="side-box" aria-labelledby="side-title">
+        <h3 id="side-title">短链速览</h3>
+        <dl>
+          <dt>服务名称</dt>
+          <dd>91.short.com</dd>
+          <dt>主要用途</dt>
+          <dd>长网址缩短、短链生成</dd>
+          <dt>常用能力</dt>
+          <dd>自定义后缀、点击统计、链接管理</dd>
+          <dt>使用方式</dt>
+          <dd>浏览器内操作，无需安装</dd>
+          <dt>跳转原则</dt>
+          <dd>按原始网址指向目标页面</dd>
+        </dl>
+        <p class="tagline">
+          <strong>提示：</strong>短链只改变地址长度，不改变目标页面内容。分享前请确认原链接有效且来源可信。
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">常见问题</span>
+        <h2 id="faq-title">关于 91.short.com 的常见疑问</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>短链会改变原网页内容吗？</h3>
+          <p>不会。短链只是原始网址的简短替代地址，访问时跳转到原地址，页面内容由目标站点决定。</p>
+        </div>
+        <div class="faq-item">
+          <h3>可以自定义短链后缀吗？</h3>
+          <p>在可用范围内支持自定义后缀。若所选后缀已被占用，需要换一个再提交。</p>
+        </div>
+        <div class="faq-item">
+          <h3>短链失效了怎么办？</h3>
+          <p>先确认原始网址是否仍可访问。原页面删除或域名变更后，跳转会中断，此时需要用新地址重新生成。</p>
+        </div>
+        <div class="faq-item">
+          <h3>手机上能使用 91.short.com 吗？</h3>
+          <p>可以。页面适配移动端浏览器，输入与复制操作都能在手机上完成，无需安装额外应用。</p>
+        </div>
+        <div class="faq-item">
+          <h3>点击统计包含哪些信息？</h3>
+          <p>主要反映短链被访问的次数与时间分布，用于判断链接是否被打开，具体字段以实际界面为准。</p>
+        </div>
+        <div class="faq-item">
+          <h3>生成的短链可以用于商业场景吗？</h3>
+          <p>短链本身是通用工具，使用时应遵守目标平台规则与相关法律，不得用于误导性跳转或侵权内容分发。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 收束 CTA -->
+  <section id="shorten" class="closing" aria-labelledby="closing-title">
+    <div class="wrap closing-inner">
+      <div>
+        <h2 id="closing-title">把下一条长网址交给 91.short.com</h2>
+        <p>复制、粘贴、生成，三步得到一条可分享的短链接。需要时再回来看点击数据，让每次分享都更清楚。</p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#top">回到缩短入口</a>
+        <a class="btn btn-ghost" href="#" data-download-placeholder="true" aria-disabled="true" tabindex="-1" style="pointer-events:none">下载</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <strong>91.short.com</strong>
+        短链接生成与网址缩短工具入口，围绕缩短、命名、统计与管理提供日常分享所需的基础能力。
+      </div>
+      <div class="footer-col">
+        <strong>快速导航</strong>
+        <a href="#features">功能</a> · <a href="#how">使用方法</a> · <a href="#guide">短链说明</a> · <a href="#faq">常见问题</a>
+      </div>
+      <div class="footer-col">
+        <strong>使用提醒</strong>
+        短链跳转依赖原始网址有效性；分享前请确认链接来源可靠，并遵守目标平台的使用规则。
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2024 91.short.com · 短链接生成与网址缩短主题首页
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
